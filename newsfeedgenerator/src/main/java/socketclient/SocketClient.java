@@ -44,7 +44,7 @@ public class SocketClient {
     }
 
     private void connectToServer() {
-        while (echoSocket == null || echoSocket.isClosed()) {
+        while (echoSocket == null) {
             try {
                 echoSocket = new Socket("127.0.0.1", 8088);
             } catch (IOException e) {
