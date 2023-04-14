@@ -4,12 +4,14 @@ import data.Priority;
 
 import java.util.Arrays;
 
+import java.util.Comparator;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PriorityGenerator {
 
     public static Priority getPriority() {
         int[] priorities = Arrays.stream(Priority.values())
+                .sorted(Comparator.reverseOrder())
                 .mapToInt(Priority::getValue)
                 .toArray();
 
