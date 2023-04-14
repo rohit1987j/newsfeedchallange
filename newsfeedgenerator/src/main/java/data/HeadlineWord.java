@@ -1,5 +1,7 @@
 package data;
 
+import java.util.Arrays;
+
 public enum HeadlineWord {
     up(1, true),
     down(2, false),
@@ -28,11 +30,11 @@ public enum HeadlineWord {
     }
 
     public static int getMinIndex() {
-        return up.index;
+        return Arrays.stream(HeadlineWord.values()).map(HeadlineWord::getIndex).min(Integer::compareTo).get();
     }
 
     public static int getMaxIndex() {
-        return unter.index;
+        return Arrays.stream(HeadlineWord.values()).map(HeadlineWord::getIndex).max(Integer::compareTo).get();
     }
 
     public boolean isPositive() {
