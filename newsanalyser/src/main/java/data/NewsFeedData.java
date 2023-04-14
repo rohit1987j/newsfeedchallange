@@ -19,4 +19,9 @@ public class NewsFeedData {
     public NewsFeed getNewsFeed() {
         return newsFeed;
     }
+
+    public boolean newsFeedOlderThan30Seconds() {
+        LocalDateTime timestampBefore30Seconds = LocalDateTime.now().minusSeconds(30);
+        return localDateTime.isAfter(timestampBefore30Seconds);
+    }
 }

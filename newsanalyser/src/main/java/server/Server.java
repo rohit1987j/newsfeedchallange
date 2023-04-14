@@ -1,6 +1,7 @@
 package server;
 
 import data.NewsFeedData;
+import service.DeleteNewsFeedDataService;
 import service.NewsAnalyserService;
 import service.ResultPrintService;
 
@@ -18,6 +19,9 @@ public class Server {
 
         NewsAnalyserService newsAnalyserService = new NewsAnalyserService(blockingQueue, new ResultPrintService());
         newsAnalyserService.startAnalysis();
+
+        DeleteNewsFeedDataService deleteNewsFeedService = new DeleteNewsFeedDataService(blockingQueue);
+        deleteNewsFeedService.startJob();
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
 
