@@ -3,9 +3,6 @@ package server;
 import data.NewsFeed;
 import data.NewsFeedData;
 
-import service.NewsAnalyserService;
-import service.ResultPrintService;
-
 import java.net.*;
 import java.io.*;
 
@@ -24,9 +21,6 @@ public class ServerThread extends Thread {
     }
 
     public void run() {
-
-        NewsAnalyserService newsAnalyserService = new NewsAnalyserService(queue, new ResultPrintService());
-        newsAnalyserService.startAnalysis();
 
         try (ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream())) {
 

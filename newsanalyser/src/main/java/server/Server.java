@@ -1,6 +1,8 @@
 package server;
 
 import data.NewsFeedData;
+import service.NewsAnalyserService;
+import service.ResultPrintService;
 
 import java.net.*;
 import java.io.*;
@@ -13,6 +15,9 @@ public class Server {
     public void start(int port) {
 
         boolean listening = true;
+
+        NewsAnalyserService newsAnalyserService = new NewsAnalyserService(blockingQueue, new ResultPrintService());
+        newsAnalyserService.startAnalysis();
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
 
