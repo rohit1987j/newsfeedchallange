@@ -42,8 +42,8 @@ public class NewsAnalyserService implements Runnable {
         long totalCount = newsFeedInLast10Seconds.size();
 
         List<NewsFeed> result = newsFeedInLast10Seconds.stream()
-                .filter(distinctByKey(NewsFeed::getHeadlineAsString))
                 .sorted((nf1, nf2) -> Integer.compare(nf2.getPriority().getValue(), nf1.getPriority().getValue()))
+                .filter(distinctByKey(NewsFeed::getHeadlineAsString))
                 .limit(MAX_SIZE)
                 .collect(Collectors.toList());
 

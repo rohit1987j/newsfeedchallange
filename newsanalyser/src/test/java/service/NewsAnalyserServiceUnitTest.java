@@ -65,7 +65,30 @@ public class NewsAnalyserServiceUnitTest {
 
         assertEquals(6l, result.getCount());
         assertEquals(3l, result.getNewsFeedList().stream().count());
-        assertEquals(result.getNewsFeedList().stream().map(NewsFeed::getPriority).collect(Collectors.toList()), Arrays.asList(Priority.NINE, Priority.EIGHT, Priority.SEVEN));
+        assertEquals(Arrays.asList(Priority.NINE, Priority.EIGHT, Priority.SEVEN), result.getNewsFeedList().stream().map(NewsFeed::getPriority).collect(Collectors.toList()));
+    }
+
+    @Test
+    public void resultIsCorrectWhenHeadlinesWithLowerPriorityArePresentFirst() {
+        BlockingQueue<NewsFeedData> queue = new LinkedBlockingQueue<>();
+        queue.add(createNewsFeedData(Arrays.asList(HeadlineWord.über, HeadlineWord.up), Priority.ONE));
+        queue.add(createNewsFeedData(Arrays.asList(HeadlineWord.über, HeadlineWord.down), Priority.THREE));
+        queue.add(createNewsFeedData(Arrays.asList(HeadlineWord.über, HeadlineWord.failure), Priority.FOUR));
+        queue.add(createNewsFeedData(Arrays.asList(HeadlineWord.über, HeadlineWord.down), Priority.FOUR));
+        queue.add(createNewsFeedData(Arrays.asList(HeadlineWord.über, HeadlineWord.failure), Priority.SIX));
+        queue.add(createNewsFeedData(Arrays.asList(HeadlineWord.über, HeadlineWord.up), Priority.SEVEN));
+
+        newsAnalyserService = new NewsAnalyserService(queue, resultPrintService);
+
+        newsAnalyserService.run();
+
+        verify(resultPrintService).print(resultArgumentCaptor.capture());
+
+        Result result = resultArgumentCaptor.getValue();
+
+        assertEquals(6l, result.getCount());
+        assertEquals(3l, result.getNewsFeedList().stream().count());
+        assertEquals(Arrays.asList(Priority.SEVEN, Priority.SIX, Priority.FOUR), result.getNewsFeedList().stream().map(NewsFeed::getPriority).collect(Collectors.toList()));
     }
 
     public NewsFeedData createNewsFeedData(List<HeadlineWord> words, Priority priority) {
