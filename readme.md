@@ -14,7 +14,7 @@ we are in current folder
 # How to run both services
 To run the services please run following command
 * java -jar ./newsanalyser/target/newsanalyser-1.0-SNAPSHOT.jar
-* java -jar ./newsfeedgenerator/target/newsfeedgenerator-1.0-SNAPSHOT.jar <frequency>
+* java -jar -Dfrequency <frequency> ./newsfeedgenerator/target/newsfeedgenerator-1.0-SNAPSHOT.jar
 
 
 # Unit testing
@@ -27,6 +27,6 @@ More test have to be written in reallife.
 * I didnt want to spend more time so just copied them in both services.
 * Mentioning here just to clarify
 
-# Total time spend = 8-10 hours
+# Total time spend = 8-10 hours(first attempt) + 2 hours (bugfixing)
 
 
