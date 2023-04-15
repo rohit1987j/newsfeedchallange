@@ -16,9 +16,17 @@ public enum HeadlineWord {
     über(11,true),
     unter(12, false);
 
-    private int index;
+    private final int index;
 
-    private boolean isPositive;
+    private final boolean isPositive;
+
+    private static final int min = Arrays.stream(HeadlineWord.values()).map(HeadlineWord::getIndex)
+                                                                 .min(Integer::compareTo)
+                                                                 .get();
+
+    private static final int max = Arrays.stream(HeadlineWord.values()).map(HeadlineWord::getIndex)
+                                                                 .max(Integer::compareTo)
+                                                                 .get();
 
     public int getIndex()  {
         return index;
@@ -30,11 +38,11 @@ public enum HeadlineWord {
     }
 
     public static int getMinIndex() {
-        return Arrays.stream(HeadlineWord.values()).map(HeadlineWord::getIndex).min(Integer::compareTo).get();
+        return min;
     }
 
     public static int getMaxIndex() {
-        return Arrays.stream(HeadlineWord.values()).map(HeadlineWord::getIndex).max(Integer::compareTo).get();
+        return max;
     }
 
     public boolean isPositive() {
